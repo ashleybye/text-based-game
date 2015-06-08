@@ -1,5 +1,9 @@
-package com.ashleybye.textgame.stage;
+package com.ashleybye.textgame.script;
 
+import com.ashleybye.textgame.script.Scene;
+import com.ashleybye.textgame.stage.Actor;
+import com.ashleybye.textgame.stage.Enemy;
+import com.ashleybye.textgame.stage.Friend;
 import org.junit.Test;
 
 import java.util.ArrayList;
