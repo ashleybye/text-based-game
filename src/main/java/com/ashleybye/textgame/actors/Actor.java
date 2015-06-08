@@ -1,4 +1,4 @@
-package com.ashleybye.textgame.stage;
+package com.ashleybye.textgame.actors;
 
 /**
  * Created by ashley on 08/06/2015.

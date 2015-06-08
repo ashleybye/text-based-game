@@ -1,6 +1,6 @@
 package com.ashleybye.textgame.script;
 
-import com.ashleybye.textgame.stage.Actor;
+import com.ashleybye.textgame.actors.Actor;
 
 import java.util.ArrayList;
 import java.util.List;

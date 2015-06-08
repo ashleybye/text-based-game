@@ -1,4 +1,4 @@
-package com.ashleybye.textgame.stage;
+package com.ashleybye.textgame.actors;
 
 import org.junit.Test;
 
