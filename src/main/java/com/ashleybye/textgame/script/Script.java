@@ -5,6 +5,9 @@ package com.ashleybye.textgame.script;
  */
 public class Script
 {
+    public static final int DEFAULT_X_POSITION = 0;
+    public static final int DEFAULT_Y_POSITION = 0;
+
     private int xAxisLength;
     private int yAxisLength;
     private Scene[][] scenes;
@@ -35,5 +38,10 @@ public class Script
                         + xPosition + ", " + yPosition + ")");
         }
         scenes[xPosition][yPosition] = scene;
+    }
+
+    public Scene getScene(int xPosition, int yPosition)
+    {
+        return scenes[xPosition][yPosition];
     }
 }

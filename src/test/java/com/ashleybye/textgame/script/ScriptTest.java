@@ -92,4 +92,16 @@ public class ScriptTest
 
         script.addScene(scene, x, y);
     }
+
+    @Test
+    public void shouldBeAbleToGetSceneAtSpecifiedGrid()
+    {
+        Scene scene = Mockito.mock(Scene.class);
+        Script script = new Script(1, 1);
+        script.addScene(scene, 0, 0);
+
+        Scene returnedScene = script.getScene(0, 0);
+
+        assertEquals("getScene should return a scene", scene, returnedScene);
+    }
 }
