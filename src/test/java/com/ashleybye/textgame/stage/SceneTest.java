@@ -1,42 +1,48 @@
 package com.ashleybye.textgame.stage;
 
 import org.junit.Test;
-import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by ashley on 08/06/2015.
  */
 public class SceneTest
 {
+    private static final String SCENE_DESCRIPTION = "It's a dark, dark night...";
+
     @Test
     public void constructorCorrectlyInitialisesSceneWithDescription()
     {
-        String description = "Bright lights!";
-        Scene scene = new Scene(description);
+        Scene scene = new Scene(SCENE_DESCRIPTION);
 
         assertEquals("constructor should set a description of what is going on in the scene",
-                description, scene.getDescription());
-        assertNull("constructor should set actor to null if none is supplied", scene.getActor());
+                SCENE_DESCRIPTION, scene.getDescription());
     }
 
     @Test
-    public void constructorCorrectlyInitialisesSceneWithDescriptionAndActor()
+    public void constructorCorrectlyInitialisesSceneWithEmptyListOfActors()
     {
-        Actor actor = Mockito.mock(Enemy.class);
-        when(actor.getName()).thenReturn("Biggles");
-        String description = "In a dark, dreary forrest";
+        Scene scene = new Scene(SCENE_DESCRIPTION);
 
-        Scene scene = new Scene(description, actor);
+        assertEquals("constructor should set a the list of actors to an empty list, expected 0, got "
+                + scene.getActors().size(), 0, scene.getActors().size());
+    }
 
-        assertEquals("constructor should set a description of what is going on in the scene",
-                description, scene.getDescription());
-        assertEquals("constructor should set an actor if one is specified",
-                "Biggles", scene.getActor().getName());
-        verify(actor).getName();
+    @Test
+    public void sceneCanHaveMoreThanOneActor()
+    {
+        List<Actor> actors = new ArrayList<>();
+        actors.add(new Enemy());
+        actors.add(new Friend());
+
+        Scene scene = new Scene(SCENE_DESCRIPTION);
+        scene.setActors(actors);
+
+        assertEquals("does not return the correct number of actors: got " + scene.getActors().size()
+                    + ", expected " + actors.size(), actors.size(), scene.getActors().size());
     }
 }

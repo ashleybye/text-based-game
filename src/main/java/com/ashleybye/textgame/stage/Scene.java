@@ -1,22 +1,20 @@
 package com.ashleybye.textgame.stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ashley on 08/06/2015.
  */
 public class Scene
 {
     private String description;
-    private Actor actor;
+    private List<Actor> actors;
 
     public Scene(String description)
     {
-        this(description, null);
-    }
-
-    public Scene(String description, Actor actor)
-    {
         this.description = description;
-        this.actor = actor;
+        this.actors = new ArrayList<>();
     }
 
     public String getDescription()
@@ -24,13 +22,13 @@ public class Scene
         return description;
     }
 
-    public Actor getActor()
+    public List<Actor> getActors()
     {
-        return actor;
+        return actors;
     }
 
-    public void setActor(Actor actor)
+    public void setActors(List<Actor> actors)
     {
-        this.actor = actor;
+        this.actors = actors;
     }
 }

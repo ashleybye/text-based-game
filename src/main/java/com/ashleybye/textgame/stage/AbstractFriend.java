@@ -3,13 +3,13 @@ package com.ashleybye.textgame.stage;
 /**
  * Created by ashley on 08/06/2015.
  */
-public class AbstractEnemy implements Actor
+public class AbstractFriend implements Actor
 {
-    private static final String DEFAULT_NAME = "Groucher";
+    private static final String DEFAULT_NAME = "Biggles";
 
     private String name;
 
-    public AbstractEnemy()
+    public AbstractFriend()
     {
         this.name = DEFAULT_NAME;
     }
