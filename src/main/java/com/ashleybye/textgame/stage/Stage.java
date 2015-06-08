@@ -1,0 +1,23 @@
+package com.ashleybye.textgame.stage;
+
+/**
+ * Created by ashley on 08/06/2015.
+ */
+public class Stage
+{
+    // not final, it needs to be set back to null once no longer required
+    private static Stage stage;
+
+    private Stage()
+    {
+    }
+
+    public static final Stage getStage()
+    {
+        if (stage == null)
+        {
+            stage = new Stage();
+        }
+        return stage;
+    }
+}
