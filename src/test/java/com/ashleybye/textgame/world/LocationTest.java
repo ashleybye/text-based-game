@@ -1,4 +1,4 @@
-package com.ashleybye.textgame.script;
+package com.ashleybye.textgame.world;
 
 import com.ashleybye.textgame.actors.Actor;
 import com.ashleybye.textgame.actors.Enemy;
@@ -14,24 +14,24 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by ashley on 08/06/2015.
  */
-public class SceneTest
+public class LocationTest
 {
     @Test
     public void constructorCorrectlyInitialisesSceneWithDefaultDescription()
     {
-        Scene scene = new Scene(0, 0);
+        Location location = new Location(0, 0);
 
-        assertNotNull("constructor should set a description of what is going on in the scene",
-                scene.getDescription());
+        assertNotNull("constructor should set a description of what is going on in the location",
+                location.getDescription());
     }
 
     @Test
     public void constructorCorrectlyInitialisesSceneWithEmptyListOfActors()
     {
-        Scene scene = new Scene(0, 0);
+        Location location = new Location(0, 0);
 
         assertEquals("constructor should set a the list of actors to an empty list, expected 0, got "
-                + scene.getActors().size(), 0, scene.getActors().size());
+                + location.getActors().size(), 0, location.getActors().size());
     }
 
     @Test
@@ -41,10 +41,10 @@ public class SceneTest
         actors.add(new Enemy());
         actors.add(new Friend());
 
-        Scene scene = new Scene(0 ,0);
-        scene.setActors(actors);
+        Location location = new Location(0 ,0);
+        location.setActors(actors);
 
-        assertEquals("does not return the correct number of actors: got " + scene.getActors().size()
-                    + ", expected " + actors.size(), actors.size(), scene.getActors().size());
+        assertEquals("does not return the correct number of actors: got " + location.getActors().size()
+                    + ", expected " + actors.size(), actors.size(), location.getActors().size());
     }
 }

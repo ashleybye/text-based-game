@@ -1,4 +1,4 @@
-package com.ashleybye.textgame.script;
+package com.ashleybye.textgame.world;
 
 import com.ashleybye.textgame.actors.Actor;
 
@@ -8,13 +8,13 @@ import java.util.List;
 /**
  * Created by ashley on 08/06/2015.
  */
-public class Scene
+public class Location
 {
     private final String DEFAULT_DESCRIPTION = "This is a boring, default scene";
     private String description;
     private List<Actor> actors;
 
-    public Scene(int xPosition, int yPosition)
+    public Location(int xPosition, int yPosition)
     {
         this.description = DEFAULT_DESCRIPTION;
         this.actors = new ArrayList<>();

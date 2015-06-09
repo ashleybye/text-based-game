@@ -1,4 +1,4 @@
-package com.ashleybye.textgame.script;
+package com.ashleybye.textgame.navigator;
 
 /**
  * Created by ashley on 09/06/2015.

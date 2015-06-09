@@ -1,5 +1,6 @@
-package com.ashleybye.textgame.script;
+package com.ashleybye.textgame.navigator;
 
+import com.ashleybye.textgame.world.Location;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import static org.junit.Assert.*;
  * Created by ashley on 08/06/2015.
  */
 @RunWith(JUnitParamsRunner.class)
-public class ScriptTest
+public class MapTest
 {
     private final Object[] validSceneGrids()
     {
@@ -29,12 +30,12 @@ public class ScriptTest
     @Parameters(method = "validSceneGrids")
     public void shouldStoreScenesInGridWithDimensionsSpecifiedAtConstruction(int x, int y)
     {
-        Script script = new Script(x, y);
+        Map map = new Map(x, y);
 
-        int xLength = script.getAllScenes().length;
-        int yLength = script.getAllScenes()[0].length;
+        int xLength = map.getAllLocations().length;
+        int yLength = map.getAllLocations()[0].length;
 
-        assertNotNull("list of scenes should not be null", script.getAllScenes());
+        assertNotNull("list of scenes should not be null", map.getAllLocations());
         assertEquals("list of scenes should be in a grid " + x + "x" + y + " but got  "
                 + xLength + "x" + yLength,
                 (x + y), (xLength + yLength));
@@ -56,19 +57,19 @@ public class ScriptTest
     @Parameters(method = "invalidSceneGrids")
     public void shouldThrowIllegalArgumentExceptionWithInvalidSceneGridDimensions(int x, int y)
     {
-        Script script = new Script(x, y);
+        Map map = new Map(x, y);
     }
 
     @Test
     public void scenesAreAbleToBeAddedToValidGridPlacements()
     {
-        Scene scene = Mockito.mock(Scene.class);
-        Script script = new Script(1, 1);
+        Location location = Mockito.mock(Location.class);
+        Map map = new Map(1, 1);
 
-        script.addScene(scene, 0, 0);
+        map.addLocation(location, 0, 0);
 
-        assertTrue("scene should be added to the specified grid location",
-                script.getAllScenes()[0][0] instanceof Scene);
+        assertTrue("location should be added to the specified grid location",
+                map.getAllLocations()[0][0] instanceof Location);
     }
 
     private final Object[] outOfBoundsPositions()
@@ -87,22 +88,22 @@ public class ScriptTest
     @Parameters(method = "outOfBoundsPositions")
     public void addingSceneOustideOfSceneGridShouldThrowIndexOutOfBoundsException(int size, int x, int y)
     {
-        Scene scene = Mockito.mock(Scene.class);
-        Script script = new Script(size, size);
+        Location location = Mockito.mock(Location.class);
+        Map map = new Map(size, size);
 
-        script.addScene(scene, x, y);
+        map.addLocation(location, x, y);
     }
 
     @Test
     public void shouldBeAbleToGetSceneAtSpecifiedGrid()
     {
-        Scene scene = Mockito.mock(Scene.class);
-        Script script = new Script(1, 1);
-        script.addScene(scene, 0, 0);
+        Location location = Mockito.mock(Location.class);
+        Map map = new Map(1, 1);
+        map.addLocation(location, 0, 0);
 
-        Scene returnedScene = script.goToScene(0, 0);
+        Location returnedLocation = map.loadLoaction(0, 0);
 
-        assertEquals("getCurrentScene should return a scene", scene, returnedScene);
+        assertEquals("getCurrentLocation should return a location", location, returnedLocation);
     }
 
     private final Object[] accessScenes()
@@ -119,9 +120,9 @@ public class ScriptTest
     @Parameters(method = "accessScenes")
     public void isSceneAccessibleFromShouldReturnTrueWhenSceneAdjacent(Compass direction)
     {
-        Script script = new Script(3, 3);
+        Map map = new Map(3, 3);
 
-        boolean accessible = script.isSceneAccessibleFrom(1, 1, direction);
+        boolean accessible = map.isLocationAccessibleFrom(1, 1, direction);
 
         assertTrue("from centre of 3x3 scene grid to " + direction.name() + " should be accessible but isn't",
                 accessible);
@@ -131,9 +132,9 @@ public class ScriptTest
     @Parameters(method = "accessScenes")
     public void isSceneAccessibleFromShouldReturnFalseWhenNoScenesAdjacent(Compass direction)
     {
-        Script script = new Script(1, 1);
+        Map map = new Map(1, 1);
 
-        boolean accessible = script.isSceneAccessibleFrom(0, 0, direction);
+        boolean accessible = map.isLocationAccessibleFrom(0, 0, direction);
 
         assertFalse("from center of a 1x1 scene grid to " + direction.name() + " should not be accessible but is",
                 accessible);
@@ -142,10 +143,10 @@ public class ScriptTest
     @Test
     public void scenesWithBarrierInBetweenShouldNotBeAccessible()
     {
-        Script script = new Script(3, 3);
-        script.addBarrier(1.0F, 1.5F);
+        Map map = new Map(3, 3);
+        map.addBarrier(1.0F, 1.5F);
 
-        boolean accessible = script.isSceneAccessibleFrom(1, 1, Compass.NORTH);
+        boolean accessible = map.isLocationAccessibleFrom(1, 1, Compass.NORTH);
 
         assertFalse("should not be able to access a scene if there is a barrier in the way", accessible);
     }

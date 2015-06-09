@@ -1,25 +1,27 @@
-package com.ashleybye.textgame.script;
+package com.ashleybye.textgame.navigator;
+
+import com.ashleybye.textgame.world.Location;
 
 /**
  * Created by ashley on 08/06/2015.
  */
-public class Script
+public class Map
 {
     private int xAxisLength;
     private int yAxisLength;
-    private Scene[][] scenes;
+    private Location[][] locations;
     private boolean[][] barriers;
     private int currentX;
     private int currentY;
     
-    public Script(int xLength, int yLength) throws IllegalArgumentException
+    public Map(int xLength, int yLength) throws IllegalArgumentException
     {
         if ((xLength <= 0) || yLength <= 0)
         {
             throw new IllegalArgumentException("scene grid must have minimum dimensions of 1x1");
         }
-        this.scenes = new Scene[xLength][yLength];
-        this.barriers = new boolean[xLength + 1][yLength + 1]; // barriers need 2 more spaces than number of scenes
+        this.locations = new Location[xLength][yLength];
+        this.barriers = new boolean[xLength + 1][yLength + 1]; // barriers need 2 more spaces than number of locations
         this.xAxisLength = xLength;
         this.yAxisLength = yLength;
     }
@@ -95,31 +97,31 @@ public class Script
         return barrier;
     }
 
-    public Scene[][] getAllScenes()
+    public Location[][] getAllLocations()
     {
-        return scenes;
+        return locations;
     }
 
-    public void addScene(Scene scene, int xPosition, int yPosition) throws IndexOutOfBoundsException
+    public void addLocation(Location location, int xPosition, int yPosition) throws IndexOutOfBoundsException
     {
         if ((xPosition < 0) || (xPosition >= xAxisLength) || (yPosition < 0)
                 || (yPosition >= yAxisLength))
         {
-            throw new IndexOutOfBoundsException("a scene cannot be placed outside of the scene grid; grid is "
-                        + xAxisLength + "x" + yAxisLength + ", attempted to place scene at position ("
+            throw new IndexOutOfBoundsException("a location cannot be placed outside of the location grid; grid is "
+                        + xAxisLength + "x" + yAxisLength + ", attempted to place location at position ("
                         + xPosition + ", " + yPosition + ")");
         }
-        scenes[xPosition][yPosition] = scene;
+        locations[xPosition][yPosition] = location;
     }
 
-    public Scene goToScene(int xPosition, int yPosition)
+    public Location loadLoaction(int xPosition, int yPosition)
     {
         this.currentX = xPosition;
         this.currentY = yPosition;
-        return scenes[xPosition][yPosition];
+        return locations[xPosition][yPosition];
     }
 
-    public boolean isSceneAccessibleFrom(int currentX, int currentY, Compass direction)
+    public boolean isLocationAccessibleFrom(int currentX, int currentY, Compass direction)
     {
         boolean accessible = false;
 
