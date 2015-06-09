@@ -10,18 +10,24 @@ import java.util.List;
  */
 public class Scene
 {
+    private final String DEFAULT_DESCRIPTION = "This is a boring, default scene";
     private String description;
     private List<Actor> actors;
 
-    public Scene(String description)
+    public Scene(int xPosition, int yPosition)
     {
-        this.description = description;
+        this.description = DEFAULT_DESCRIPTION;
         this.actors = new ArrayList<>();
     }
 
     public String getDescription()
     {
         return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 
     public List<Actor> getActors()

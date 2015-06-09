@@ -100,8 +100,53 @@ public class ScriptTest
         Script script = new Script(1, 1);
         script.addScene(scene, 0, 0);
 
-        Scene returnedScene = script.getScene(0, 0);
+        Scene returnedScene = script.goToScene(0, 0);
 
-        assertEquals("getScene should return a scene", scene, returnedScene);
+        assertEquals("getCurrentScene should return a scene", scene, returnedScene);
+    }
+
+    private final Object[] accessScenes()
+    {
+        return new Object[] {
+                new Object[] { Compass.NORTH },
+                new Object[] { Compass.EAST },
+                new Object[] { Compass.SOUTH },
+                new Object[] { Compass.WEST }
+        };
+    }
+
+    @Test
+    @Parameters(method = "accessScenes")
+    public void isSceneAccessibleFromShouldReturnTrueWhenSceneAdjacent(Compass direction)
+    {
+        Script script = new Script(3, 3);
+
+        boolean accessible = script.isSceneAccessibleFrom(1, 1, direction);
+
+        assertTrue("from centre of 3x3 scene grid to " + direction.name() + " should be accessible but isn't",
+                accessible);
+    }
+
+    @Test
+    @Parameters(method = "accessScenes")
+    public void isSceneAccessibleFromShouldReturnFalseWhenNoScenesAdjacent(Compass direction)
+    {
+        Script script = new Script(1, 1);
+
+        boolean accessible = script.isSceneAccessibleFrom(0, 0, direction);
+
+        assertFalse("from center of a 1x1 scene grid to " + direction.name() + " should not be accessible but is",
+                accessible);
+    }
+
+    @Test
+    public void scenesWithBarrierInBetweenShouldNotBeAccessible()
+    {
+        Script script = new Script(3, 3);
+        script.addBarrier(1.0F, 1.5F);
+
+        boolean accessible = script.isSceneAccessibleFrom(1, 1, Compass.NORTH);
+
+        assertFalse("should not be able to access a scene if there is a barrier in the way", accessible);
     }
 }

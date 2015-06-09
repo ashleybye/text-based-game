@@ -9,27 +9,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by ashley on 08/06/2015.
  */
 public class SceneTest
 {
-    private static final String SCENE_DESCRIPTION = "It's a dark, dark night...";
-
     @Test
-    public void constructorCorrectlyInitialisesSceneWithDescription()
+    public void constructorCorrectlyInitialisesSceneWithDefaultDescription()
     {
-        Scene scene = new Scene(SCENE_DESCRIPTION);
+        Scene scene = new Scene(0, 0);
 
-        assertEquals("constructor should set a description of what is going on in the scene",
-                SCENE_DESCRIPTION, scene.getDescription());
+        assertNotNull("constructor should set a description of what is going on in the scene",
+                scene.getDescription());
     }
 
     @Test
     public void constructorCorrectlyInitialisesSceneWithEmptyListOfActors()
     {
-        Scene scene = new Scene(SCENE_DESCRIPTION);
+        Scene scene = new Scene(0, 0);
 
         assertEquals("constructor should set a the list of actors to an empty list, expected 0, got "
                 + scene.getActors().size(), 0, scene.getActors().size());
@@ -42,7 +41,7 @@ public class SceneTest
         actors.add(new Enemy());
         actors.add(new Friend());
 
-        Scene scene = new Scene(SCENE_DESCRIPTION);
+        Scene scene = new Scene(0 ,0);
         scene.setActors(actors);
 
         assertEquals("does not return the correct number of actors: got " + scene.getActors().size()

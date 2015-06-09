@@ -1,5 +1,6 @@
 package com.ashleybye.textgame.director;
 
+import com.ashleybye.textgame.script.Compass;
 import com.ashleybye.textgame.script.Scene;
 import com.ashleybye.textgame.script.Script;
 import com.ashleybye.textgame.stage.Stage;
@@ -31,7 +32,35 @@ public class Director
 
     public void begin()
     {
-        Scene scene = script.getScene(Script.DEFAULT_X_POSITION, Script.DEFAULT_Y_POSITION);
+        Scene scene = script.goToScene(0, 0);
         stage.setScene(scene);
+    }
+
+    public void loadScene(Compass direction)
+    {
+        boolean accessible = script.isSceneAccessibleFrom(script.getCurrentX(), script.getCurrentY(), direction);
+        if (accessible)
+        {
+            int x = script.getCurrentX();
+            int y = script.getCurrentY();
+
+            switch (direction)
+            {
+                case NORTH:
+                    y += 1;
+                    break;
+                case EAST:
+                    x += 1;
+                case SOUTH:
+                    y -= 1;
+                    break;
+                case WEST:
+                    x -= 1;
+                    break;
+            }
+
+            Scene scene = script.goToScene(x, y);
+            stage.setScene(scene);
+        }
     }
 }

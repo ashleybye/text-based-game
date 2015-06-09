@@ -24,7 +24,7 @@ public class Stage
         return stage;
     }
 
-    public Scene getScene()
+    public Scene getCurrentScene()
     {
         return currentScene;
     }
